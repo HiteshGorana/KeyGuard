@@ -145,11 +145,17 @@ KEYGUARD
 ├── apps
 │   ├── access-key
 │   │   ├── src
+│   │   │   ├── controllers
+│   │   │   │   ├── access-key-admin.controller.ts
+│   │   │   │   ├── access-key-user.controller.ts
 │   │   │   ├── dto
-│   │   │   │   └── update-access-key.dto.ts
+│   │   │   │   ├── create-access-key.dto.ts
+│   │   │   │   ├── update-access-key.dto.ts
 │   │   │   ├── schemas
 │   │   │   │   └── access-key.schema.ts
 │   │   │   ├── services
+│   │   │   │   ├── access-key.service.ts
+│   │   │   │   ├── logging.service.ts
 │   │   │   ├── access-key.module.ts
 │   │   │   └── main.ts
 │   │   ├── test
@@ -163,6 +169,8 @@ KEYGUARD
 │   │   │   ├── schemas
 │   │   │   │   └── access-key.schema.ts
 │   │   │   ├── services
+│   │   │   │   └── token.service.ts
+│   │   │   ├── token.module.ts
 │   │   │   └── main.ts
 │   │   ├── test
 │   │   │   ├── app.e2e-spec.ts
@@ -176,7 +184,3 @@ KEYGUARD
 ├── .gitignore
 └── prettierrc
 ```
-
-### Bonus
-
-- Tests are implemented using Jest for end-to-end testing.

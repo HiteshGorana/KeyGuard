@@ -18,18 +18,38 @@ export class TokenService {
   ) {}
 
   async getTokenInfo(key: string): Promise<any> {
-    const accessKey = await this.accessKeyModel.findOne({ key }).exec();
+    let accessKey: AccessKey;
+
+    // Fetch from Redis
+    const accessKeyFromRedis = await this.redisClient.get(`access-key:${key}`);
+    if (accessKeyFromRedis) {
+      accessKey = JSON.parse(accessKeyFromRedis) as AccessKey;
+    } else {
+      // Fetch from MongoDB
+      const accessKeyFromDb = await this.accessKeyModel.findOne({ key }).exec();
+      if (!accessKeyFromDb) {
+        throw new NotFoundException('Invalid access key');
+      }
+      accessKey = accessKeyFromDb.toObject();
+
+      // Cache in Redis
+      await this.redisClient.set(
+        `access-key:${key}`,
+        JSON.stringify(accessKey),
+      );
+    }
+
     console.log(`\n===== Token Info Request =====`);
     console.log(`Access Key: ${JSON.stringify(accessKey, null, 2)}`);
     console.log(`Current Date: ${new Date().toISOString()}`);
     console.log(
-      `Expires At: ${accessKey ? accessKey.expiresAt.toISOString() : 'N/A'}`,
+      `Expires At: ${
+        accessKey ? new Date(accessKey.expiresAt).toISOString() : 'N/A'
+      }`,
     );
     console.log(`Is Disabled: ${accessKey ? accessKey.isDisabled : 'N/A'}`);
     console.log(`==============================\n`);
-    if (!accessKey) {
-      throw new NotFoundException('Invalid access key');
-    }
+
     if (accessKey.isDisabled || new Date() > new Date(accessKey.expiresAt)) {
       throw new ForbiddenException('Access key is disabled or expired');
     }
@@ -69,7 +89,8 @@ export class TokenService {
     await this.redisClient.publish(
       'token-requests',
       JSON.stringify({
-        key,
+        action: 'TokenInfo',
+        key: key,
         timestamp: new Date().toISOString(),
         success: true,
         requestCount: newRequestCount,

@@ -6,6 +6,8 @@ This project consists of two microservices developed using NestJS, designed to m
 
 ## Microservice 1: Access Key Management Service
 
+[![Watch the video](https://www.loom.com/share/26197d4ded3048f287e9473347ee9afa)](https://www.loom.com/share/26197d4ded3048f287e9473347ee9afa)
+
 ### Objective
 
 This service is responsible for generating access keys for users, defining rate limits, expiration times, and providing administrative capabilities to create or delete keys. Users can retrieve their plan details using their key.

@@ -8,6 +8,8 @@ This project consists of two microservices developed using NestJS, designed to m
 
 [![Watch the video](https://www.loom.com/share/26197d4ded3048f287e9473347ee9afa)](https://www.loom.com/share/26197d4ded3048f287e9473347ee9afa)
 
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/26197d4ded3048f287e9473347ee9afa?sid=4f3dc7c3-eda0-4864-b2ef-067f5f10cfc9" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
 ### Objective
 
 This service is responsible for generating access keys for users, defining rate limits, expiration times, and providing administrative capabilities to create or delete keys. Users can retrieve their plan details using their key.

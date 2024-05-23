@@ -3,15 +3,23 @@ services:
     image: mongo:latest
     container_name: mongo
     ports:
-      - "27017:27017"
+      - '27017:27017'
     volumes:
       - mongo_data:/data/db
+    networks:
+      - docker_net
 
   redis:
-    image: redis:6
+    image: redis:latest
     container_name: redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
+    networks:
+      - docker_net
 
 volumes:
   mongo_data:
+
+networks:
+  docker_net:
+    driver: bridge
